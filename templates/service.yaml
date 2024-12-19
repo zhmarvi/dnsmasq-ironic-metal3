@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "dnsmasq.fullname" . }}-service
+  labels:
+    app: {{ include "dnsmasq.name" . }}
+    release: {{ .Release.Name }}
+spec:
+  selector:
+    app: {{ include "dnsmasq.name" . }}
+  ports:
+    - protocol: UDP
+      port: {{ .Values.service.port }}
+      targetPort: 67
+  type: {{ .Values.service.type }}
