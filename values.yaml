@@ -1,0 +1,36 @@
+# dnsmasq image settings
+image:
+  repository: quay.io/metal3-io/ironic
+  tag: "latest"
+  pullPolicy: IfNotPresent
+
+# dnsmasq configuration settings
+dnsmasqConfig:
+  - "HTTP_PORT=6180"
+  - "DHCP_HOSTS=e4:43:4b:2d:cf:44,,172.22.0.101,bmh-cp2;e4:43:4b:2d:c8:c0,172.22.0.100,bmh-cp1"
+  - "DHCP_IGNORE=tag:!known"
+  - "PROVISIONING_INTERFACE='eth0'"
+  - "DHCP_RANGE=172.22.0.100,172.22.0.110,255.255.255.0,12h"
+  - "GATEWAY_IP=172.22.0.1"
+  - "DNS_IP=173.203.4.8"
+# Resource limits and requests
+resources:
+  requests:
+    memory: "64Mi"
+    cpu: "50m"
+  limits:
+    memory: "128Mi"
+    cpu: "100m"
+
+# DNS service settings
+service:
+  type: ClusterIP
+  port: 67
+  targetPort: 67
+  name: dnsmasq
+  #- type: ClusterIP
+  #  port: 69
+  # targetPort: 69
+  #  name: dnsmasq-tftp
+# Deployment replica settings
+replicaCount: 1
