@@ -4,6 +4,8 @@ image:
   tag: "latest"
   pullPolicy: IfNotPresent
 
+# DNSMASQ Container Environment Variables for Metal3, Please change as needed as per Metal3 DHCP server documentation
+# https://book.metal3.io/quick-start#dhcp-server
 env:
   port: "6180"
   dhcpHosts: "b4:2e:99:97:5c:0d"
@@ -12,6 +14,7 @@ env:
   dhcpRange: "192.168.1.75,192.168.1.77,255.255.255.0,12h"
   gatewayIp: "192.168.1.1"
   dnsIp: "192.168.1.252"
+
 # Resource limits and requests
 resources:
   requests:
@@ -20,4 +23,5 @@ resources:
   limits:
     memory: "128Mi"
     cpu: "100m"
+
 replicaCount: 1
