@@ -6,7 +6,10 @@ metadata:
     app: {{ include "dnsmasq.name" . }}
     release: {{ .Release.Name }}
 data:
-  dnsmasq.conf: |
-    {{- range .Values.dnsmasqConfig }}
-    {{ . }}
-    {{- end }}
+  HTTPS_PORT: {{ .Values.env.port | toString | quote }}
+  DHCP_HOSTS: {{ .Values.env.dhcpHosts | toString | quote }}
+  DHCP_IGNORE: {{ .Values.env.dhcpIgnore | toString | quote }}
+  PROVISIONING_INTERFACE: {{ .Values.env.provisioningInterface | toString | quote }}
+  DHCP_RANGE: {{ .Values.env.dhcpRange | toString | quote }}
+  GATEWAY_IP: {{ .Values.env.gatewayIp | toString | quote }}
+  DNS_IP: {{ .Values.env.dnsIp | toString | quote }}

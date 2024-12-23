@@ -26,10 +26,10 @@ spec:
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           securityContext:
-          capabilities:
-            add:
-            - NET_ADMIN
-            - NET_RAW
+            capabilities:
+              add:
+                - NET_ADMIN
+                - NET_RAW
           command:
             - /bin/rundnsmasq
           ports:
@@ -39,12 +39,6 @@ spec:
             - containerPort: 69
               name: tftp
               protocol: UDP
-          volumeMounts:
-            - name: config-volume
-              mountPath: /etc/dnsmasq.conf
-              subPath: dnsmasq.conf
-              readOnly: true
-      volumes:
-        - name: config-volume
-          configMap:
-            name: {{ include "dnsmasq.fullname" . }}-config
+          envFrom:
+            - configMapRef:
+                name: {{ include "dnsmasq.fullname" . }}-config
