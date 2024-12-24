@@ -18,7 +18,8 @@ The following values need to be updated in the values.yaml to allow PXE Boot MAC
 
 Based on this document: https://book.metal3.io/quick-start#dhcp-server
 ```
-port: "6180"
+env:
+  port: "6180"
   dhcpHosts: "<NODE_MAC1>,<NODE_MAC2>,xxx" # COMMA SERARATED LIST
   dhcpIgnore: "tag:!known"
   provisioningInterface: "ens18" # (Optional) Provisioning Interface of the DCHP server container worker node
